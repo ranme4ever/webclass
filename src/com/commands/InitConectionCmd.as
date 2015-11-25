@@ -1,5 +1,6 @@
 package com.commands
 {
+	import com.constants.ApplicationConfigure;
 	import com.proxy.ConnectionProxy;
 	
 	import mx.rpc.IResponder;
@@ -19,10 +20,10 @@ package com.commands
 		override public function execute(notification:INotification):void
 		{
 			super.execute(notification);
-			proxy = new ConnectionProxy(this)
+			proxy = new ConnectionProxy()
 			switch(notification.getName()){
 				case BEGIN_CONNECT_LBS_SERVER:
-					proxy.connectLbsServer();
+					proxy.connectLbsServer(ApplicationConfigure.LBS_SERVER_PATH,ApplicationConfigure.LBS_SERVER_PORTS,this);
 					break;
 			}
 		}

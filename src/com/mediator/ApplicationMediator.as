@@ -1,7 +1,6 @@
 package com.mediator
 {
 	import com.commands.InitConectionCmd;
-	import com.kk.controller.InitializeConnectionCommand;
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;

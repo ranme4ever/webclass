@@ -4,13 +4,18 @@ package com.proxy
 
 	public class ConnectionProxy
 	{
-		public static const socket:SocketService = new SocketService();
-		public function ConnectionProxy(responder:IResponder)
+		private var _lbsConnection:SocketService
+		public function ConnectionProxy()
 		{
 		}
-		public function connectLbsServer():void
+		private function get lbsConnection():SocketService{
+			if(!_lbsConnection)
+				_lbsConnection = SocketFactory.getLbsSocket();
+			return _lbsConnection;
+		}
+		public function connectLbsServer(ip:String,ports:Array,responder:IResponder):void
 		{
-			SocketService.connectLbsServer();
+			lbsConnection.connectSocket(ip,ports,responder);
 		}
 	}
 }
