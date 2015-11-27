@@ -2,9 +2,6 @@ package com.proxy
 {
 	import com.commands.HandleSocketCommand;
 	import com.constants.NotificationType;
-	import com.kk.constants.NotificationType;
-	import com.kk.controller.HandlePotocolCommand;
-	import com.kk.utils.Logger;
 	
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -76,7 +73,10 @@ package com.proxy
 				clearTimeout(timerHandle);
 			timerHandle = setTimeout(connectSocketServer, CONNECT_TIMEOUT);
 		}
-		
+		public function sendData(data:Object):void
+		{
+			//send data
+		}
 		private function connectOKHandle(event:Event):void {
 			this._responder.result({type:"socketConnectSuccess",message: "socketConnectSuccess"});
 		}

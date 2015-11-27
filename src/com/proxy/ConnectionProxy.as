@@ -17,5 +17,10 @@ package com.proxy
 		{
 			lbsConnection.connectSocket(ip,ports,responder);
 		}
+		
+		public function sendData(data:Object):void
+		{
+			lbsConnection.sendData(data);
+		}
 	}
 }

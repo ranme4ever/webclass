@@ -1,6 +1,6 @@
 package com.mediator
 {
-	import com.commands.InitConectionCmd;
+	import com.commands.ConnectLbsServerCmd;
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
@@ -17,7 +17,7 @@ package com.mediator
 		}
 		
 		override public function onRegister():void {
-			sendNotification(InitConectionCmd.BEGIN_CONNECT_LBS_SERVER);
+			sendNotification(ConnectLbsServerCmd.BEGIN_CONNECT_LBS_SERVER);
 		}
 		
 		override public function listNotificationInterests():Array {
