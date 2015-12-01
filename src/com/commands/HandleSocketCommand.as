@@ -1,6 +1,8 @@
 package com.commands
 {
 	import com.constants.NotificationType;
+	import com.protocol.ProtocolHandleTable;
+	import com.utils.Logger;
 	
 	import flash.utils.Dictionary;
 	
@@ -18,7 +20,7 @@ package com.commands
 		{
 			// TODO Auto Generated method stub
 			super.execute(notification);
-			var cmdHandleTabel:Dictionary = KKNetProtocolHandleTabel.getProtocolCmdHandleTabel();
+			var cmdHandleTabel:Dictionary = ProtocolHandleTable.getProtocolCmdHandleTabel();
 			if(notification.getBody().hasOwnProperty("cmd"))
 			{
 				var cmd:Object = notification.getBody()["cmd"];

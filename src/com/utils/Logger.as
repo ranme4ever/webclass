@@ -32,10 +32,7 @@ public class Logger {
      *
      */
     public static function consoleLog(message:String, level:int = DEBUG_LEVEL):void {
-        CONFIG::release{
-            if (level > logLevel)
-                return;
-        }
+      
         var prefix:String;
         switch (level) {
             case DEBUG_LEVEL:

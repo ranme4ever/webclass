@@ -2,10 +2,12 @@ package com.commands
 {
 	import com.proxy.ConnectionProxy;
 	
+	import mx.rpc.IResponder;
+	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	
-	public class ConnectMediaServer extends SimpleCommand
+	public class ConnectMediaServer extends SimpleCommand implements IResponder
 	{
 		public function ConnectMediaServer()
 		{
@@ -19,14 +21,28 @@ package com.commands
 		{
 			// TODO Auto Generated method stub
 			super.execute(notification);
-			proxy = new ConnectionProxy(this);
-			if (!mediaServerCfg)mediaServerCfg = notification.getBody();
-			connectAsServer(mediaServerCfg);
+			proxy = new ConnectionProxy();
+			if (!mediaServerCfg)
+				mediaServerCfg = notification.getBody();
+			connectAuthServer(mediaServerCfg);
 		}
-		private function connectAsServer(cfg:Object):void {
+		private function connectAuthServer(cfg:Object):void {
 			var ip:String = cfg.ip;
 			var port:int = cfg.port;
-			proxy.connectSocket(ip, [port], this);
+			proxy.connectServer(ip, [port], this);
 		}
+		
+		public function fault(info:Object):void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
+		public function result(data:Object):void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
 	}
 }

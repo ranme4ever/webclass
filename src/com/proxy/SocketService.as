@@ -24,7 +24,7 @@ package com.proxy
 		private var _ports:Array;
 		
 		private var portIndex:int = 0;
-		private var timerHandle
+		private var timerHandle:int
 		private static var CONNECT_TIMEOUT:Number = 60*1000;
 		private static var SOCKET_TIMEOUT:Number = 30*1000;
 			
@@ -59,7 +59,7 @@ package com.proxy
 		{
 			if (portIndex >= _ports.length) {
 				this._responder.fault({error: 'socketConnectTimeOut'});
-				destorySocket();
+				destorySocketService();
 				return;
 			}
 			if (socket.connected) {
@@ -73,6 +73,7 @@ package com.proxy
 				clearTimeout(timerHandle);
 			timerHandle = setTimeout(connectSocketServer, CONNECT_TIMEOUT);
 		}
+		
 		public function sendData(data:Object):void
 		{
 			//send data
@@ -98,14 +99,19 @@ package com.proxy
 			Facade.getInstance().sendNotification(HandleSocketCommand.SOCKET_DATA_COMMOND, data);
 		}
 		
+		/** 
+		 * 将二进制数据序列化成协议类型 
+		 * @param data  
+		 * @return 
+		 * 
+		 */
 		private function serializeBytearray(data:ByteArray):Object{
 			return {cmd:'',data:''}
 		}
 		
-		private function destorySocket():void {
+		private function destorySocketService():void {
 			portIndex = 0;
-			if (socket.connected)
-				socket.close();
+			destory()
 		}
 		private function socket_closeHandler(event:Event):void {
 			Facade.getInstance().sendNotification(NotificationType.SERVER_CONNECTION_CLOSED);
@@ -115,6 +121,15 @@ package com.proxy
 		{
 			connectSocketServer();
 		}
-
+		public function stopConnectTimer():void {
+			if (timerHandle) {
+				clearTimeout(timerHandle);
+			}
+		}
+		public function destory():void {
+			if (socket && socket.connected) {
+				socket.close();
+			}
+		}
 	}
 }

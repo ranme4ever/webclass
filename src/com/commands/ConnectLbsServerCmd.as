@@ -1,7 +1,7 @@
 package com.commands
 {
 	import com.constants.ApplicationConfigure;
-	import com.protocol.ProtocolType;
+	import com.protocol.NetProtocol;
 	import com.proxy.ConnectionProxy;
 	import com.utils.Logger;
 	
@@ -25,7 +25,7 @@ package com.commands
 			proxy = new ConnectionProxy()
 			switch(notification.getName()){
 				case BEGIN_CONNECT_LBS_SERVER:
-					proxy.connectLbsServer(ApplicationConfigure.LBS_SERVER_PATH,ApplicationConfigure.LBS_SERVER_PORTS,this);
+					proxy.connectServer(ApplicationConfigure.LBS_SERVER_PATH,ApplicationConfigure.LBS_SERVER_PORTS,this);
 					break;
 			}
 		}
@@ -43,10 +43,9 @@ package com.commands
 			{
 				Logger.consoleLog("connect on LBS server,begin sent  confrim packet.");
 				var obj:Object = {};
-				obj.cmd = ProtocolType.CMD_CONNECT_LBS;
+				obj.cmd = NetProtocol.CMD_CONNECT_LBS_SERVER;
 				obj.FailedServerIP = [];
 				proxy.sendData(obj);
-				break;
 			}
 		}
 		
