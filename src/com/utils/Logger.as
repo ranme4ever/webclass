@@ -21,8 +21,8 @@ public class Logger {
 
 
     public static const ERROR_LEVEL:int = 3;
-    public static const WARNING_LEVEL:int = 2;
-    public static const DEBUG_LEVEL:int = 1;
+	public static const WARNING_LEVEL:int = 2;
+	public static const DEBUG_LEVEL:int = 1;
 
     /**
      * 输出控制台日志

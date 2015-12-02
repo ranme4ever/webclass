@@ -39,7 +39,7 @@ package com.commands
 			sendObj.cmd = NetProtocol.CMD_GET_USER_INFO;
 			sendObj.sourceID = uid;
 			Facade.getInstance().registerCommand(NotificationType.PROTOCOL_CMD_PREFIX + NetProtocol.CMD_GET_USER_INFO, GetUserInfoCommand);
-			new ConnectionProxy(this).sendData(sendObj);
+			new ConnectionProxy().sendData(sendObj);
 		}
 		public function GetUserInfoCommand()
 		{

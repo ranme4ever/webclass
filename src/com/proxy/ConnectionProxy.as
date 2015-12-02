@@ -1,13 +1,7 @@
 package com.proxy
 {
-	import com.kk.connection.KKNetProtocolConstant;
-	import com.kk.utils.Logger;
-	import com.kk.utils.MD5;
 	import com.protocol.NetProtocol;
 	import com.utils.Logger;
-	
-	import flash.utils.ByteArray;
-	import flash.utils.Endian;
 	
 	import mx.rpc.IResponder;
 

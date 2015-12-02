@@ -1,6 +1,5 @@
 package com.commands
 {
-	import com.kk.proxy.ConnectionProxy;
 	import com.proxy.ConnectionProxy;
 	
 	import flash.utils.ByteArray;
