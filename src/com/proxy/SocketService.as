@@ -7,8 +7,10 @@ package com.proxy
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
+	import flash.events.TimerEvent;
 	import flash.net.Socket;
 	import flash.utils.ByteArray;
+	import flash.utils.Timer;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
 	
@@ -23,6 +25,7 @@ package com.proxy
 		private var _ip:String;
 		private var _ports:Array;
 		
+		private var pingTimer:Timer;
 		private var portIndex:int = 0;
 		private var timerHandle:int
 		private static var CONNECT_TIMEOUT:Number = 60*1000;
@@ -130,6 +133,14 @@ package com.proxy
 			if (socket && socket.connected) {
 				socket.close();
 			}
+		}
+		public function startHeartBeat(timeOut:uint):void {
+			if (pingTimer != null) return;
+			pingTimer = new Timer(timeOut);
+			pingTimer.addEventListener(TimerEvent.TIMER, onPingTimer);
+			pingTimer.start();
+		}
+		private function onPingTimer(event:TimerEvent):void {
 		}
 	}
 }

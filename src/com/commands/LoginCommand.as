@@ -1,5 +1,6 @@
 package com.commands
 {
+	import com.model.ApplicationModelocator;
 	import com.proxy.ConnectionProxy;
 	
 	import flash.utils.ByteArray;
@@ -11,6 +12,7 @@ package com.commands
 	
 	public class LoginCommand extends SimpleCommand
 	{
+		public static const LOGIM_COMMAND:String = "loginCommand";
 		public function LoginCommand()
 		{
 			super();
@@ -25,7 +27,7 @@ package com.commands
 			var param:Object = app.parameters;//获取flexvars
 			
 			var username:String = param.username;
-			var classid:uint = uint(param.classid);
+			ApplicationModelocator.getInstance().classId = uint(param.classid);
 			var password:String = param.password;
 			
 			var ba:ByteArray = new ByteArray;
@@ -33,6 +35,5 @@ package com.commands
 			new ConnectionProxy().login(username, password, false);
 		}
 		
-		public static const LOGIM_COMMAND:String = "loginCommand";
 	}
 }

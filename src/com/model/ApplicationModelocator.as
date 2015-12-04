@@ -17,5 +17,7 @@ package com.model
 		
 		public var UID:uint;
 		public var nickName:String;
+		
+		public var classId:uint;
 	}
 }

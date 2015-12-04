@@ -29,10 +29,14 @@ package com.commands
 				case NotificationType.PROTOCOL_CMD_PREFIX + NetProtocol.CMD_GET_USER_INFO:
 					Logger.consoleLog("user info got");
 					ApplicationModelocator.getInstance().nickName = body.nickName;
+					getMediaInfo();
 					break;
 			}
 		}
-		
+		private function getMediaInfo():void
+		{
+			facade.sendNotification(GetMediaServerInfoCmd.GET_MEDIA_SERVER_INFO);
+		}
 		public function getUserInfo(uid:uint):void
 		{
 			var sendObj:Object = {};

@@ -72,7 +72,6 @@ package com.protocol
 						sourceID: UID
 					};
 					sendNotification(SendDataCommand.SEND_DATA_COMMAND, sendObj);
-					
 				}
 				
 			}
