@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.component.media.VideoRender;
+			private static const DEFAULT_WIDTH:uint = 320;
+			private static const DEFAULT_HEIGHT:uint = 180;
+			private static const DEFAULT_FPS:uint = 40;
+			public function onShowCamera(obj:Object):void
+			{
+				var w:Number = obj['Width'];
+				var h:Number = obj['Height'];
+				if ((w >> 16) > 0) {
+					w = obj['width'] << 16;
+					h = obj['width'] & 0x1111;
+				}
+				if (w == 0 || h == 0) {
+					w = DEFAULT_WIDTH;
+					h = DEFAULT_HEIGHT;
+				}
+				var render:VideoRender;
+				render = new VideoRender(width, height, DEFAULT_FPS);
+				this.addElement(render.hostComponent);
+				if (!render)
+					return;
+				
+				var data:ByteArray = obj.Data;
+				if (obj.FrameFlag && data.length > 8) { //keyframe
+					var sig:int;
+					var len:int;
+					data.position = data.length - 8;
+					data.endian = Endian.LITTLE_ENDIAN;
+					len = data.readInt();
+					sig = data.readInt();
+					data.endian = Endian.BIG_ENDIAN;
+					if (sig == 0x19771030) {
+						if (!render.initOK) {
+							var avcc:ByteArray = new ByteArray();
+							data.position = data.length - 8 - len;
+							data.readBytes(avcc, 0, len);
+							render.onFlvAvccData(avcc);
+						}
+						data.length = data.length - 8 - len;
+					}
+				}
+				if (render.initOK)
+					render.onFlvData(data, obj.FrameFlag != 0);
+			}
+		]]>
+	</fx:Script>
+</s:Group>

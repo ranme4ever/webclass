@@ -1,5 +1,7 @@
 package com.bootstrap {
 	import com.mediator.ApplicationMediator;
+	import com.mediator.LeftViewMediator;
+	import com.mediator.MainViewMediator;
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
@@ -15,6 +17,9 @@ package com.bootstrap {
 	        
 			var app:Main = notification.getBody() as Main;
 			facade.registerMediator(new ApplicationMediator(app));
+			
+			facade.registerMediator(new MainViewMediator(app.mainView));
+			facade.registerMediator(new LeftViewMediator(app.mainView.leftView));
 		}
 	}
 }

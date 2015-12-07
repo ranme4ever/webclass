@@ -82,7 +82,6 @@ package com.commands
 		private function startMediaServerHeartBeat():void {
 			Logger.consoleLog("start media server heart beat!");
 			new ConnectionProxy().mediaService.startHeartBeat(60 * 1000);
-			
 		}
 	}
 }

@@ -2,6 +2,7 @@ package com.proxy
 {
 	import com.commands.HandleSocketCommand;
 	import com.constants.NotificationType;
+	import com.protocol.NetProtocol;
 	
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -141,6 +142,9 @@ package com.proxy
 			pingTimer.start();
 		}
 		private function onPingTimer(event:TimerEvent):void {
+			var data:Object={};
+			data.cmd = NetProtocol.CMD_HEART_BEAT;
+			sendData(data);
 		}
 	}
 }

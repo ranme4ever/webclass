@@ -43,5 +43,26 @@ package com.protocol
 		 * 心跳指令
 		 */
 		public static const CMD_HEART_BEAT:uint = 8;
+		/**
+		 * enter class 
+		 */		
+		public static const CMD_ENTER_CLASS:uint = 9;
+		
+		/**
+		 * 课件切换 
+		 */
+		public static const CMD_COURSEWARE_CHANGE:uint = 10;
+		
+		/**
+		 * 白板数据 
+		 */
+		public static const WRITE_BOARD_DATA:uint = 11;
+		
+		public static const PPT_DATA:uint = 12;
+		
+		public static const DESK_SHARE_DATA:uint =13;
+		
+		public static const CAMERA_DATA:uint = 14;
+		
 	}
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			public function onShowBoard(data:Object):void
+			{
+				for (var i:int = 0; i < data.Items.length; i++) {
+					drawGraphicShape(data.Items[i].ItemData as ByteArray);
+				}
+			}
+			private function drawGraphicShape(bytes:ByteArray):void
+			{
+				var type:int=bytes.readUnsignedByte();
+				var ownerCx:uint = bytes.readUnsignedShort();
+				var ownerCy:uint = bytes.readUnsignedShort();
+				
+				var tickness:Number = bytes.readUnsignedByte();
+				var stockColor:Number = bytes.readUnsignedInt();
+				var child:Shape = new Shape();
+				child.graphics.lineStyle(1, 0, 0.0, true);
+				child.graphics.drawRect(0, 0, ownerCx, ownerCy); //set height width
+				child.graphics.lineStyle(tickness, stockColor, 1.0, true);
+				switch(type){
+					case 1:
+						drawRect(bytes, child);
+						break;
+					default :
+						break;
+				}
+				child.x = 0;
+				child.y = 0;
+				child.width = ownerCx;
+				child.height = ownerCy;
+				scaledBoard(child, board);
+				board.addChild(child);
+			}
+			
+			private static function drawRect(data:ByteArray, shape:Shape):void {
+				var l:int = data.readShort();
+				var t:int = data.readShort();
+				var r:int = data.readShort();
+				var b:int = data.readShort();
+				//
+				shape.graphics.drawRect(l, t, r - l, b - t);
+			}
+			public static function scaledBoard(child:Object, dest:Object):void {
+				if (child.width * 3 > child.height * 4)//more width
+				{
+					child.x = 0;
+					child.height = child.height * dest.width / child.width;
+					child.width = dest.width;
+					child.y = (dest.height - child.height) / 2;
+					child.y = child.y < 0 ? 0 : child.y;
+				}
+				else if (child.width * 3 < child.height * 4)//more height
+				{
+					child.y = 0;
+					child.width = child.width * dest.height / child.height;
+					child.height = dest.height;
+					child.x = (dest.width - child.width) / 2;
+					child.x = child.x < 0 ? 0 : child.x;
+				}
+				else {
+					child.x = 0;
+					child.y = 0;
+					child.width = dest.width;
+					child.height = dest.height;
+				}
+			}		
+		]]>
+	</fx:Script>
+	<mx:UIComponent id="board" width="100%" height="100%"
+					blendMode="{BlendMode.LAYER}"/>
+	<s:Rect  left="0" top="0" bottom="0" right="0">
+		<s:fill>
+			<s:SolidColor color="0x4b4b4b"/>
+		</s:fill>
+	</s:Rect>
+</s:Group>

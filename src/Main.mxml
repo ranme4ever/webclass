@@ -27,4 +27,10 @@
 	
 	
 	<view:MainView id="mainView"/>
+	<s:Group x="0" y="0" width="100%" height="100%" id="initStatus">
+		<s:RichEditableText id="classStatu"
+							horizontalCenter="0" top="260"
+							color="0xFFFFFF" fontSize="12"
+							blendMode="layer" editable="false"/>
+	</s:Group>
 </s:Application>
