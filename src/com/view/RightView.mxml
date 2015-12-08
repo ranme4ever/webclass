@@ -9,10 +9,11 @@
 			private var _mediator:RightViewMediator;
 			
 			public function get mediator():RightViewMediator{
-				if(!_mediator && Facade.getInstance().hasMediator(RightViewMediator.RIGHT_VIEW_MEDIATOR))
+				if(!_mediator ){
+					if(!Facade.getInstance().hasMediator(RightViewMediator.RIGHT_VIEW_MEDIATOR))
+						Facade.getInstance().registerMediator(new RightViewMediator(this));
 					_mediator =  Facade.getInstance().retrieveMediator(RightViewMediator.RIGHT_VIEW_MEDIATOR) as RightViewMediator;
-				else
-					Facade.getInstance().registerMediator(new RightViewMediator(this))
+				}
 				return _mediator;
 			}
 			protected function chatTab_clickHandler(event:MouseEvent):void
