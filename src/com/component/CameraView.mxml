@@ -11,6 +11,7 @@
 			private static const DEFAULT_WIDTH:uint = 320;
 			private static const DEFAULT_HEIGHT:uint = 180;
 			private static const DEFAULT_FPS:uint = 40;
+			private var render:VideoRender;
 			public function onShowCamera(obj:Object):void
 			{
 				var w:Number = obj['Width'];
@@ -23,12 +24,10 @@
 					w = DEFAULT_WIDTH;
 					h = DEFAULT_HEIGHT;
 				}
-				var render:VideoRender;
-				render = new VideoRender(width, height, DEFAULT_FPS);
-				this.addElement(render.hostComponent);
-				if (!render)
-					return;
-				
+				if(!render){
+					render = new VideoRender(width, height, DEFAULT_FPS);
+					this.addElement(render.hostComponent);
+				}
 				var data:ByteArray = obj.Data;
 				if (obj.FrameFlag && data.length > 8) { //keyframe
 					var sig:int;

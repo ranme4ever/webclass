@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.formatters.DateFormatter;
+			import mx.utils.StringUtil;
+			
+			import spark.components.RichEditableText;
+			import spark.skins.spark.TextAreaSkin;
+			
+			import flashx.textLayout.elements.InlineGraphicElementStatus;
+			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.events.StatusChangeEvent;
+			import flashx.textLayout.events.UpdateCompleteEvent;
+			[Bindable]
+			private var itemHeight:uint = 65;
+			protected function content_updateCompleteHandler(event:FlexEvent):void
+			{
+				var output:RichEditableText = content.textDisplay as RichEditableText;
+				if (false == data.hasOwnProperty("contentHeight") || output.contentHeight > data.contentHeight)
+					data.contentHeight = output.contentHeight;
+				if (itemHeight != data.contentHeight + 16)
+					itemHeight = data.contentHeight + 16;
+			}
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				TextAreaSkin(content.skin).background.alpha = 0.0;
+				var output:RichEditableText = content.textDisplay as RichEditableText;
+				var textFlow:TextFlow = output.textFlow;
+				if (textFlow.numChildren > 0)
+					textFlow.removeChildAt(0);
+				//
+				var day:Date = new Date(1000 * data.sendTime);
+				var df:DateFormatter = new DateFormatter();
+				df.formatString = 'HH:NN:SS';
+				msg_name.text = StringUtil.substitute("{0} ({1}) {2}", data.name, data.uid.lowValue, df.format(day));
+				msg_name.setStyle("color", data.identity == 0 ? 0x008040 : (data.identity == 2 ? 0xff0000 : 0x3078ab));
+				//
+				
+				textFlow.addEventListener(UpdateCompleteEvent.UPDATE_COMPLETE, updateOver);
+				textFlow.addEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE, graphicChangeHandler);
+				textFlow.addChild(data.content);
+				
+				function updateOver(e:Event):void {
+					output.textFlow.removeEventListener(UpdateCompleteEvent.UPDATE_COMPLETE, updateOver);
+					if (!data.hasOwnProperty("contentHeight") || output.contentHeight > data.contentHeight)
+						data.contentHeight = output.contentHeight;
+					itemHeight = data.contentHeight + 16;
+				}
+				
+				function graphicChangeHandler(e:StatusChangeEvent):void {
+					if(e.status == InlineGraphicElementStatus.READY) {
+						if (!data.hasOwnProperty("contentHeight") || output.contentHeight > data.contentHeight)
+							data.contentHeight = output.contentHeight;
+						itemHeight = data.contentHeight + 16;
+					}
+				}
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:Label id="msg_name" textAlign="left" verticalAlign="top" left="4" right="0" top="0" bottom="0" fontFamily="宋体"
+			 lineBreak="explicit" maxDisplayedLines="1"
+			 fontSize="12" text="" color="0x3078ab" />
+	<s:TextArea id="content" 
+				left="8" top="12" bottom="0" width="260" focusThickness="0" textAlign="left"
+				borderVisible="false"
+				editable="false" verticalScrollPolicy="off" updateComplete="content_updateCompleteHandler(event)">
+		
+	</s:TextArea>
+</s:ItemRenderer>

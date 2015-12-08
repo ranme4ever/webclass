@@ -64,5 +64,7 @@ package com.protocol
 		
 		public static const CAMERA_DATA:uint = 14;
 		
+		public static const CHAT_MESSAGE:uint= 15;
+		
 	}
 }
