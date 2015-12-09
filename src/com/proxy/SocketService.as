@@ -3,6 +3,8 @@ package com.proxy
 	import com.commands.HandleSocketCommand;
 	import com.constants.NotificationType;
 	import com.protocol.NetProtocol;
+	import com.vo.MsgPacket;
+	import com.vo.PacketStream;
 	
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -81,36 +83,36 @@ package com.proxy
 		public function sendData(data:Object):void
 		{
 			//send data
+			var packet:MsgPacket = new MsgPacket();
+			packet.writeEntry(data.cmd,data);
+			var bytes:ByteArray = packet.buffer;
+			bytes.position = 0;
+			socket.writeBytes(bytes);
+			socket.flush();
 		}
 		private function connectOKHandle(event:Event):void {
 			this._responder.result({type:"socketConnectSuccess",message: "socketConnectSuccess"});
 		}
+		private var packetStream:PacketStream = new PacketStream();
 		
-		private function handleSocketData(event:Event = null):void {
+		private function handleSocketData(event:ProgressEvent ):void {
 			if(!socket.connected){
 				return;
 			}
 			//parse & serialize socket data to object
-			var data:ByteArray = new ByteArray
-			socket.readBytes(data,data.position,socket.bytesAvailable);
-			var result:Object = serializeBytearray(data)
-				
-			protocolHandel(result)
-		
+			var data:ByteArray = new ByteArray();
+			socket.readBytes(data, 0, socket.bytesAvailable); 
+			packetStream.push(data);
+			var packets:Array = packetStream.getPackets();
+			while(packets.length>0)
+			{
+				var msg:MsgPacket = packets.shift();
+				protocolHandel(msg.getEntry())
+			}
 			
 		}
 		private function protocolHandel(data:Object):void {
 			Facade.getInstance().sendNotification(HandleSocketCommand.SOCKET_DATA_COMMOND, data);
-		}
-		
-		/** 
-		 * 将二进制数据序列化成协议类型 
-		 * @param data  
-		 * @return 
-		 * 
-		 */
-		private function serializeBytearray(data:ByteArray):Object{
-			return {cmd:'',data:''}
 		}
 		
 		private function destorySocketService():void {
