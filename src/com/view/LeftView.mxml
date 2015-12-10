@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-         xmlns:component="com.component.*">
+         xmlns:component="com.component.*" xmlns:view="com.view.*"
+		 currentState="welcome">
 
 	<fx:Script>
 		<![CDATA[
@@ -8,13 +9,15 @@
 		]]>
 	</fx:Script>
 	<s:states>
+		<s:State name="welcome"/>
 		<s:State name="ppt"/>
 		<s:State name="camera"/>
 		<s:State name="deskShare"/>
 		<s:State name="writeBoard"/>
 	</s:states>
-	<component:PPTView id="ppt" width="100%" height="100%"/>
-	<component:CameraView id="camera" width="100%" height="100%"/>
-	<component:DeskShareView id="desk" width="100%" height="100%"/>
-	<component:WriteBoardView id="board" width="100%" height="100%"/>
+	<view:WelcomePage width="100%" height="100%" includeIn="welcome"/>
+	<component:PPTView id="ppt" width="100%" height="100%" includeIn="ppt"/>
+	<component:CameraView id="camera" width="100%" height="100%" includeIn="camera"/>
+	<component:DeskShareView id="desk" width="100%" height="100%" includeIn="deskShare"/>
+	<component:WriteBoardView id="board" width="100%" height="100%" includeIn="writeBoard"/>
 </s:Group>

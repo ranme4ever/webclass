@@ -28,7 +28,7 @@ package com.commands
 					break;
 				case NotificationType.PROTOCOL_CMD_PREFIX + NetProtocol.CMD_GET_USER_INFO:
 					Logger.consoleLog("user info got");
-					ApplicationModelocator.getInstance().nickName = body.nickName;
+					ApplicationModelocator.getInstance().userName = body.nickName;
 					getMediaInfo();
 					break;
 			}

@@ -1,5 +1,6 @@
 package com.model
 {
+	[Bindable]
 	public class ApplicationModelocator
 	{
 		public function ApplicationModelocator()
@@ -16,8 +17,11 @@ package com.model
 		}
 		
 		public var UID:uint;
-		public var nickName:String;
-		
+		public var userName:String;
 		public var classId:uint;
+		
+		public var teacherName:String;
+		public var courseName:String;
+		public var courseTime:String="12-10 09:00";
 	}
 }

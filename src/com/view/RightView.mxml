@@ -36,49 +36,45 @@
 		<s:State name="member"/>
 	</s:states>
 	<!--header-->
-	<s:Group width="100%" height="50">
-		<s:Rect left="0" top="0" width="100%" height="100%">
-			<s:fill>
-				<s:SolidColor color="#999999"/>
-			</s:fill>
-		</s:Rect>
-		<s:HGroup horizontalAlign="right" width="100%" height="100%">
-			<button:IconButton width="75" height="100%" id="chatTab"
-							   imgSource="@Embed('/assets/chat.png')" bSelected="true"
-							   skinClass="com.skin.IconButtonSkin" 
-							   click="chatTab_clickHandler(event)"/>
-			<button:IconButton width="75" height="100%" id="memberTab"
-							   imgSource="@Embed('/assets/person.png')"
-							   skinClass="com.skin.IconButtonSkin"
-							   click="memberTab_clickHandler(event)"/>
-		</s:HGroup>
-	</s:Group>
-	<!--chat-->
-	<s:Group width="100%" height="100%" includeIn="chat"  >
-		<s:List  width="100%" height="100%" borderVisible="false"
-				 itemRenderer="com.component.itemrenders.ChatItemRender"
-				 dataProvider="{mediator.messageProvider}">
-			<s:layout>
-				<s:VerticalLayout variableRowHeight="true"/>
-			</s:layout>
-		</s:List>
-	</s:Group>
-	<!--member list-->
-	<s:Group width="100%" height="100%" includeIn="member" >
-		<s:List  width="100%" height="100%" borderVisible="false">
-			
-		</s:List>
-	</s:Group>
+	<mx:TabNavigator width="100%" height="100%">
+		<s:NavigatorContent label="chat" >
+			<!--chat-->
+			<s:Group width="100%" height="100%" includeIn="chat"  >
+				<s:List  width="100%" height="100%" borderVisible="false"
+						 itemRenderer="com.component.itemrenders.ChatItemRender"
+						 dataProvider="{mediator.messageProvider}">
+					<s:layout>
+						<s:VerticalLayout variableRowHeight="true"/>
+					</s:layout>
+				</s:List>
+			</s:Group>
+		</s:NavigatorContent>
+		<s:NavigatorContent label="users">
+			<!--member list-->
+			<s:Group width="100%" height="100%" includeIn="member" >
+				<s:List  width="100%" height="100%" borderVisible="false">
+					
+				</s:List>
+			</s:Group>
+		</s:NavigatorContent>
+	</mx:TabNavigator>
+	
 	<!--booter-->
-	<mx:HRule width="100%"/>
-	<s:Group width="100%" height="110">
-		<s:TextArea id="msgInput" left="0" right="0" top="0" bottom="0" focusThickness="0"
-					borderVisible="false" contentBackgroundAlpha="0"
-					focusIn="{IME.enabled=true;}" verticalScrollPolicy="off">
-			<s:keyFocusChange>
-				event.preventDefault();
-				event.currentTarget.insertText("    ");
-			</s:keyFocusChange>
-		</s:TextArea>
-	</s:Group>
+	<s:BorderContainer width="100%" height="110">
+		<s:VGroup width="100%"  height="100%"
+				  paddingBottom="5" paddingTop="5" paddingRight="5" paddingLeft="5">
+			<s:TextArea id="msgInput"  width="100%"  height="100%"
+						borderVisible="false"  focusThickness="0"
+						focusIn="{IME.enabled=true;}" verticalScrollPolicy="off">
+				<s:keyFocusChange>
+					event.preventDefault();
+					event.currentTarget.insertText("    ");
+				</s:keyFocusChange>
+			</s:TextArea>
+			<s:HGroup width="100%"
+					  horizontalAlign="right">
+				<s:Button label="sent"/>
+			</s:HGroup>
+		</s:VGroup>
+	</s:BorderContainer>
 </s:VGroup>
