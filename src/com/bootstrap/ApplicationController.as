@@ -1,10 +1,9 @@
 package com.bootstrap
 {
-	import com.commands.ConnectAuthServer;
-	import com.commands.ConnectLbsServerCmd;
 	import com.commands.ConnectMediaServer;
+	import com.commands.ConnectSignalServerCmd;
 	import com.commands.EnterClassCommand;
-	import com.commands.GetMediaServerInfoCmd;
+	import com.commands.GetClassInfoCmd;
 	import com.commands.GetUserInfoCommand;
 	import com.commands.HandleSocketCommand;
 	import com.commands.LoginCommand;
@@ -24,13 +23,11 @@ package com.bootstrap
 		}
 		
 		public function initializeCommands():void{
-			registerCommand(ConnectLbsServerCmd.BEGIN_CONNECT_LBS_SERVER,ConnectLbsServerCmd);
-			registerCommand(ConnectAuthServer.CONNECT_AUTH_SERVER,ConnectAuthServer);
-			registerCommand(ConnectAuthServer.RECIEVE_AUTH_SERVER_CONNECT_CONFRIM,ConnectAuthServer)
+			registerCommand(ConnectSignalServerCmd.BEGIN_CONNECT_SIGNAL_SERVER,ConnectSignalServerCmd);
 			
 			registerCommand(ConnectMediaServer.CONNECT_MEDIA_SERVER,ConnectMediaServer)
 			registerCommand(EnterClassCommand.ENTER_CLASS,EnterClassCommand)
-			registerCommand(GetMediaServerInfoCmd.GET_MEDIA_SERVER_INFO,GetMediaServerInfoCmd)
+			registerCommand(GetClassInfoCmd.GET_CLASS_INFO,GetClassInfoCmd)
 			registerCommand(GetUserInfoCommand.GET_USER_INFO,GetUserInfoCommand);
 			registerCommand(LoginCommand.LOGIM_COMMAND,LoginCommand)
 			registerCommand(SendDataCommand.SEND_DATA_COMMAND,SendDataCommand);

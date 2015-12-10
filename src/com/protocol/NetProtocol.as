@@ -9,21 +9,17 @@ package com.protocol
 		/**
 		 * LBS server connect ommand 
 		 */
-		public static const CMD_CONNECT_LBS_SERVER:uint=0x0000001
+		public static const CMD_CONNECT_SIGNAL_SERVER:uint=0x0000001
 		/**
 		 * Auth server connect command 
 		 */
-		public static const CMD_CONNECT_AUTH_SERVER:uint=0x0000002;
+		public static const CMD_CONNECT_MEDIA_SERVER:uint=0x0000002;
 		
 		/**
 		 * login  
 		 */
 		public static const CMD_USER_LOGIN:uint = 0x0000003;
 			
-		/**
-		 * login success 
-		 */
-		public static const CMD_LOGIN_SUCCESS:uint = 0x0000004;
 		
 		/**
 		 * get user info 
@@ -68,11 +64,11 @@ package com.protocol
 		
 		private static const protocolSchemas:Array =[
 			{
-				cmd:CMD_CONNECT_LBS_SERVER,
+				cmd:CMD_CONNECT_SIGNAL_SERVER,
 				fields:[
 				]
 			},{
-				cmd:CMD_CONNECT_AUTH_SERVER,
+				cmd:CMD_CONNECT_MEDIA_SERVER,
 				fields:[
 				]
 			},{
@@ -110,10 +106,6 @@ package com.protocol
 				]
 			},{
 				cmd:CMD_ENTER_CLASS,
-				fields:[
-				]
-			},{
-				cmd:CMD_LOGIN_SUCCESS,
 				fields:[
 				]
 			},{

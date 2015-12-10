@@ -5,19 +5,19 @@ package com.proxy
 	public class SocketFactory
 	{
 		
-		private static var lbsSocket:SocketService;
+		private static var signalSocket:SocketService;
 		private static var mediaSocket:SocketService
 		public function SocketFactory()
 		{
 		}
 		
-		public static function getLbsSocket():SocketService
+		public static function getSignalSocket():SocketService
 		{
-			if(!lbsSocket)
+			if(!signalSocket)
 			{
-				lbsSocket = new SocketService();
+				signalSocket = new SocketService();
 			}
-			return lbsSocket;
+			return signalSocket;
 		}
 		
 		public static function getMediaConnection():SocketService{

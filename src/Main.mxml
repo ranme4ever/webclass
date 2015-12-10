@@ -34,7 +34,8 @@
 			</s:LinearGradient>
 		</s:fill>
 	</s:Rect>
-	<view:MainView id="mainView" width="100%" height="100%"/>
+	<view:MainView id="mainView" width="100%" height="100%" 
+				   visible="false"/>
 	<s:Group x="0" y="0" width="100%" height="100%" id="initStatus">
 		<s:RichEditableText id="classStatu"
 							horizontalCenter="0" top="260"

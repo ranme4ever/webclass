@@ -52,6 +52,7 @@ public class Logger {
         try {
             if (ExternalInterface.available)
                 ExternalInterface.call("console.log('" + prefix + message + "')");
+			trace(prefix + message)
         } catch (e:Error) {
 
         }

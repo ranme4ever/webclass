@@ -43,7 +43,7 @@ package com.vo
 			buffer.writeByte(HEADER_VERSION)
 			buffer.writeUnsignedInt(cmd);//包 指令
 			_cmd = cmd;
-			buffer.writeUnsignedInt(body.length);//包长度
+			buffer.writeUnsignedInt(body.length);//body长度
 			buffer.writeBytes(body);
 			_body = body;
 		}

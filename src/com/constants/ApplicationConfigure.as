@@ -6,7 +6,7 @@ package com.constants
 		{
 		}
 		
-		public static const LBS_SERVER_PATH:String = "lbs.server.com";
-		public static const LBS_SERVER_PORTS:Array = [80, 21, 8080, 8000, 8001];
+		public static const SIGNAL_SERVER_PATH:String = "signal.server.com";
+		public static const SIGNAL_SERVER_PORTS:Array = [80, 21, 8080, 8000, 8001];
 	}
 }

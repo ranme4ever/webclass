@@ -1,6 +1,6 @@
 package com.mediator
 {
-	import com.commands.ConnectLbsServerCmd;
+	import com.commands.ConnectSignalServerCmd;
 	import com.constants.NotificationType;
 	
 	import flash.events.Event;
@@ -30,11 +30,12 @@ package com.mediator
 		}
 		
 		override public function onRegister():void {
-			sendNotification(ConnectLbsServerCmd.BEGIN_CONNECT_LBS_SERVER);
+			sendNotification(NotificationType.CLASS_STATUS_CHANGE,"正在初始化連接..");
+			sendNotification(ConnectSignalServerCmd.BEGIN_CONNECT_SIGNAL_SERVER);
 		}
 		
 		override public function listNotificationInterests():Array {
-			return [NotificationType.CLASS_STATUS_CHANGE];
+			return [NotificationType.CLASS_STATUS_CHANGE,NotificationType.CLASS_INIT_COMPLETE];
 		}
 		
 		override public function handleNotification(notification:INotification):void {
@@ -44,17 +45,12 @@ package com.mediator
 					var body:Object = notification.getBody();
 					if (body is String) {
 						onclassStatusChange(notification.getBody() as String);
-					} else if (body.hasOwnProperty("msg")) {
-						onclassStatusChange(body.msg);
-						if (body.hasOwnProperty("duration")) {
-							if (main.classStatu.visible == false) {
-								main.classStatu.visible = true;
-							}
-							setTimeout(function ():void {
-								main.classStatu.visible = false;
-							}, body.duration);
-						}
-					}
+					} 
+					break;
+					case NotificationType.CLASS_INIT_COMPLETE:
+						main.initStatus.visible = false;
+						main.mainView.visible = true;
+						break;
 					break;
 			}
 		}

@@ -16,10 +16,11 @@ package com.model
 			return _instance;
 		}
 		
-		public var UID:uint;
+		public var uid:uint;
 		public var userName:String;
 		public var classId:uint;
 		
+		public var teacherId:uint;
 		public var teacherName:String;
 		public var courseName:String;
 		public var courseTime:String="12-10 09:00";

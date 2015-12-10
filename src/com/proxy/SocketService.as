@@ -31,8 +31,8 @@ package com.proxy
 		private var pingTimer:Timer;
 		private var portIndex:int = 0;
 		private var timerHandle:int
-		private static var CONNECT_TIMEOUT:Number = 60*1000;
-		private static var SOCKET_TIMEOUT:Number = 30*1000;
+		private static var CONNECT_TIMEOUT:Number = 30*1000;
+		private static var SOCKET_TIMEOUT:Number = 10*1000;
 			
 		
 		public function SocketService()
@@ -64,7 +64,7 @@ package com.proxy
 		private function connectSocketServer():void
 		{
 			if (portIndex >= _ports.length) {
-				this._responder.fault({error: 'socketConnectTimeOut'});
+				this._responder.fault(new Error("socketConnectTimeOut"));
 				destorySocketService();
 				return;
 			}
@@ -91,7 +91,7 @@ package com.proxy
 			socket.flush();
 		}
 		private function connectOKHandle(event:Event):void {
-			this._responder.result({type:"socketConnectSuccess",message: "socketConnectSuccess"});
+			this._responder.result({type:"success",message: "socketConnectSuccess"});
 		}
 		private var packetStream:PacketStream = new PacketStream();
 		
@@ -136,6 +136,7 @@ package com.proxy
 			if (socket && socket.connected) {
 				socket.close();
 			}
+			stopConnectTimer()
 		}
 		public function startHeartBeat(timeOut:uint):void {
 			if (pingTimer != null) return;

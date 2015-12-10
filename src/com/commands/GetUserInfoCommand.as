@@ -3,7 +3,7 @@ package com.commands
 	import com.constants.NotificationType;
 	import com.model.ApplicationModelocator;
 	import com.protocol.NetProtocol;
-	import com.proxy.ConnectionProxy;
+	import com.proxy.ConnectionProxyFactory;
 	import com.utils.Logger;
 	
 	import org.puremvc.as3.interfaces.INotification;
@@ -21,21 +21,18 @@ package com.commands
 			var body:Object = notification.getBody();
 			switch (notification.getName()) {
 				case GET_USER_INFO:
-					//login success .begin connect media server
 					var uid:uint = body as uint;
-					facade.sendNotification(GetMediaServerInfoCmd.GET_MEDIA_SERVER_INFO, uid);
 					getUserInfo(uid);
 					break;
 				case NotificationType.PROTOCOL_CMD_PREFIX + NetProtocol.CMD_GET_USER_INFO:
 					Logger.consoleLog("user info got");
 					ApplicationModelocator.getInstance().userName = body.nickName;
-					getMediaInfo();
 					break;
 			}
 		}
 		private function getMediaInfo():void
 		{
-			facade.sendNotification(GetMediaServerInfoCmd.GET_MEDIA_SERVER_INFO);
+			facade.sendNotification(GetClassInfoCmd.GET_CLASS_INFO);
 		}
 		public function getUserInfo(uid:uint):void
 		{
@@ -43,7 +40,7 @@ package com.commands
 			sendObj.cmd = NetProtocol.CMD_GET_USER_INFO;
 			sendObj.sourceID = uid;
 			Facade.getInstance().registerCommand(NotificationType.PROTOCOL_CMD_PREFIX + NetProtocol.CMD_GET_USER_INFO, GetUserInfoCommand);
-			new ConnectionProxy().sendData(sendObj);
+			ConnectionProxyFactory.getConnectionProxy().sendSignalData(sendObj);
 		}
 		public function GetUserInfoCommand()
 		{

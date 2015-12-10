@@ -5,48 +5,37 @@ package com.proxy
 	
 	import mx.rpc.IResponder;
 
-	public class ConnectionProxy
+	public class ConnectionProxy implements IConnectionProxy
 	{
-		private var _connectionService:SocketService
+		private var _signalService:SocketService
 		private var _mediaService:SocketService
 		public function ConnectionProxy()
 		{
 		}
-		private function get connectionService():SocketService{
-			if(!_connectionService)
-				_connectionService = SocketFactory.getLbsSocket();
-			return _connectionService;
+		private function get signalService():SocketService{
+			if(!_signalService)
+				_signalService = SocketFactory.getSignalSocket();
+			return _signalService;
 		}
 		public function get mediaService():SocketService{
 			if(!_mediaService)
 				_mediaService = SocketFactory.getMediaConnection();
 			return _mediaService;
 		}
-		public function connectServer(ip:String,ports:Array,responder:IResponder):void
+		public function connectSignal(ip:String,ports:Array,responder:IResponder):void
 		{
-			connectionService.connectSocket(ip,ports,responder);
+			signalService.connectSocket(ip,ports,responder);
 		}
-		public function login(userName:String, password:String,isMd5:Boolean = true):void{
-			if (userName.length == 0 || password.length == 0)
-				return _connectionService.destory();
-			//start login now.
-			var sendObj:Object = {};
-			sendObj.cmd = NetProtocol.CMD_USER_LOGIN;
-			sendObj.username = userName;
-			sendObj.ExternPassword = password;
-			
-			Logger.consoleLog("Begin login,username="+userName+" password="+password);
-			connectionService.sendData(sendObj);
-		}
-		public function sendData(data:Object):void
+		
+		public function sendSignalData(data:Object):void
 		{
-			connectionService.sendData(data);
+			signalService.sendData(data);
 		}
 		public function stopConnectionTimer():void
 		{
-			connectionService.stopConnectTimer()
+			signalService.stopConnectTimer()
 		}
-		public function connectMediaServer(ip:String,ports:Array,responder:IResponder):void
+		public function connectMedia(ip:String,ports:Array,responder:IResponder):void
 		{
 			mediaService.connectSocket(ip,ports,responder);
 		}

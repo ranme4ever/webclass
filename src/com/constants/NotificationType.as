@@ -8,6 +8,10 @@ package com.constants
 		public static const PROTOCOL_CMD_PREFIX:String = "protocol_cmd_prefix_";
 		public static const SERVER_CONNECTION_CLOSED:String = "serverConnectionClosed";
 		
-		public static const CLASS_STATUS_CHANGE:String = "classStatusChange"
+		public static const CLASS_STATUS_CHANGE:String = "classStatusChange";
+		
+		public static const CLASS_INIT_COMPLETE:String = "classInitComplete";
+			
+			
 	}
 }

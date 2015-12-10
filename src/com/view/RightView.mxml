@@ -6,8 +6,8 @@
 			import com.mediator.RightViewMediator;
 			
 			import org.puremvc.as3.patterns.facade.Facade;
+			[Bindable]
 			private var _mediator:RightViewMediator;
-			
 			public function get mediator():RightViewMediator{
 				if(!_mediator ){
 					if(!Facade.getInstance().hasMediator(RightViewMediator.RIGHT_VIEW_MEDIATOR))
@@ -31,15 +31,11 @@
 			
 		]]>
 	</fx:Script>
-	<s:states>
-		<s:State name="chat"/>
-		<s:State name="member"/>
-	</s:states>
 	<!--header-->
 	<mx:TabNavigator width="100%" height="100%">
 		<s:NavigatorContent label="chat" >
 			<!--chat-->
-			<s:Group width="100%" height="100%" includeIn="chat"  >
+			<s:Group width="100%" height="100%"   >
 				<s:List  width="100%" height="100%" borderVisible="false"
 						 itemRenderer="com.component.itemrenders.ChatItemRender"
 						 dataProvider="{mediator.messageProvider}">
@@ -51,7 +47,7 @@
 		</s:NavigatorContent>
 		<s:NavigatorContent label="users">
 			<!--member list-->
-			<s:Group width="100%" height="100%" includeIn="member" >
+			<s:Group width="100%" height="100%"  >
 				<s:List  width="100%" height="100%" borderVisible="false">
 					
 				</s:List>

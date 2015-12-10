@@ -24,10 +24,10 @@ package com.commands
 					facade.sendNotification(NotificationType.CLASS_STATUS_CHANGE, "正在进入教室...");
 					var sendObj:Object = {};
 					sendObj.cmd = NetProtocol.CMD_ENTER_CLASS;
-					sendObj.uid = ApplicationModelocator.getInstance().UID;
+					sendObj.uid = ApplicationModelocator.getInstance().uid;
 					sendObj.classId=  ApplicationModelocator.getInstance().classId;
 					facade.registerCommand(NotificationType.PROTOCOL_CMD_PREFIX + NetProtocol.CMD_ENTER_CLASS, EnterClassCommand);
-					new ConnectionProxy().sendData(sendObj);
+					new ConnectionProxy().sendSignalData(sendObj);
 					break;
 				case NotificationType.PROTOCOL_CMD_PREFIX + NetProtocol.CMD_ENTER_CLASS:
 					onEnterClassHandle(notification.getBody());
