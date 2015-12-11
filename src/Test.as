@@ -26,6 +26,21 @@ package
 			for(var key:String in result){
 				trace(key+":"+result[key])
 			}
+			
+			var users:Object = {
+				cmd:NetProtocol.CLASS_USER_LIST,
+				userList:[
+					{name:'tom',uid:10001},
+					{name:'jim',uid:1002},
+					{name:'kim',uid:1003}
+				]	
+			};
+			var usersPacket:MsgPacket = new MsgPacket();
+			usersPacket.writeEntry(users.cmd,users);
+			var user_rl:Object = usersPacket.getEntry();
+			for(var key1:String in user_rl){
+				trace(key1+":"+user_rl[key1])
+			}
 		}
 	}
 }

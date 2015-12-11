@@ -62,6 +62,13 @@ package com.protocol
 		
 		public static const CHAT_MESSAGE:uint= 0x0000015;
 		
+		/**
+		 * 教室用户列表
+		 */
+		public static const CLASS_USER_LIST:uint = 0x00000016;
+		/**
+		 * 协议配置 ,cmd为保留字段名
+		 */		
 		private static const protocolSchemas:Array =[
 			{
 				cmd:CMD_CONNECT_SIGNAL_SERVER,
@@ -74,19 +81,9 @@ package com.protocol
 			},{
 				cmd:CMD_USER_LOGIN,
 				fields:[
-					{
-						name:'username',
-						length:32,
-						type:'String'
-					},{
-						name:'password',
-						length:32,
-						type:'String'
-					},{
-						name:'uid',
-						length:32,
-						type:'uint'
-					}
+					new ProtocolSchema("username",ProtocolFieldType.STRING,32),
+					new ProtocolSchema("password",ProtocolFieldType.STRING,32),
+					new ProtocolSchema("uid",ProtocolFieldType.UINT,32)
 				]
 			},{
 				cmd:CMD_GET_USER_INFO,
@@ -131,15 +128,16 @@ package com.protocol
 			},{
 				cmd:CHAT_MESSAGE,
 				fields:[
-					{
-						name:'uid',
-						type:"uint",
-						length:32
-					},{
-						name:'message',
-						type:"String",
-						length:'x'
-					}
+					new ProtocolSchema("uid",ProtocolFieldType.UINT,32),
+					new ProtocolSchema("message",ProtocolFieldType.STRING,"x")
+				]
+			},{
+				cmd:CLASS_USER_LIST,
+				fields:[
+					new ProtocolSchema("userList",ProtocolFieldType.LIST,"x",[
+						new ProtocolSchema("name",ProtocolFieldType.STRING,32),
+						new ProtocolSchema("uid",ProtocolFieldType.UINT,32),
+					])
 				]
 			}
 			
