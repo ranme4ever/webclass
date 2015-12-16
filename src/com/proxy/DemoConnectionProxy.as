@@ -37,14 +37,12 @@ package com.proxy
 						ip:'media.server.com',
 						port:[80,88]
 					}
-					serverToClient(sendObj);
 					break;
 				case NetProtocol.CMD_CONNECT_MEDIA_SERVER://收到媒体服务器链接成功确认请求
 					sendObj = {
 						cmd:NetProtocol.CMD_CONNECT_MEDIA_SERVER,
 						ResCode:0
 					}
-					serverToClient(sendObj);
 					break;
 				case NetProtocol.CMD_USER_LOGIN:
 					sendObj = {
@@ -52,7 +50,6 @@ package com.proxy
 						ResCode:0,
 						uid:100001
 					}
-					serverToClient(sendObj);
 					break;
 				case NetProtocol.CMD_GET_USER_INFO:
 					var sourceid:uint = data.uid;
@@ -62,7 +59,6 @@ package com.proxy
 						uid:100001,
 						nickName:'tome'
 					}
-					serverToClient(sendObj);
 					break;
 				case NetProtocol.CMD_CLASS_SERVER_INFO:
 					sendObj = {
@@ -72,11 +68,19 @@ package com.proxy
 						courseName:'高一数学',
 						courseTime:"2015.11.11 09:00",
 						teacherName:'jim',
-						teacherId:17771
+						teacherId:17771.
 					}
-					serverToClient(sendObj);
+					break;
+				case NetProtocol.CMD_CLASS_USER_LIST:
+					sendObj = {
+						cmd:NetProtocol.CMD_CLASS_USER_LIST,
+						userLst:[
+						
+						]
+					}
 					break;
 			}
+			serverToClient(sendObj);
 					
 		}
 		

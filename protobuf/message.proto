@@ -1,0 +1,15 @@
+package com.vo.protocol;
+
+message MSG_User
+{
+
+    required string userName = 1;
+
+    required int32 uid = 2;
+    
+    optional bytes data=3;
+    
+
+}
+
+

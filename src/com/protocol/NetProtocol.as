@@ -65,7 +65,7 @@ package com.protocol
 		/**
 		 * 教室用户列表
 		 */
-		public static const CLASS_USER_LIST:uint = 0x00000016;
+		public static const CMD_CLASS_USER_LIST:uint = 0x00000016;
 		/**
 		 * 协议配置 ,cmd为保留字段名
 		 */		
@@ -132,7 +132,7 @@ package com.protocol
 					new ProtocolSchema("message",ProtocolFieldType.STRING,"x")
 				]
 			},{
-				cmd:CLASS_USER_LIST,
+				cmd:CMD_CLASS_USER_LIST,
 				fields:[
 					new ProtocolSchema("userList",ProtocolFieldType.LIST,"x",[
 						new ProtocolSchema("name",ProtocolFieldType.STRING,32),
