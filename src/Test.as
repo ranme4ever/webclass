@@ -1,14 +1,9 @@
 package
 {
-	import com.netease.protobuf.Message;
-	import com.netease.protobuf.WritingBuffer;
 	import com.protocol.NetProtocol;
 	import com.vo.MsgPacket;
-	import com.vo.protocol.MSG_User;
 	
 	import flash.display.Sprite;
-	import flash.utils.ByteArray;
-	import flash.utils.IDataOutput;
 	
 	public class Test extends Sprite
 	{
@@ -16,20 +11,8 @@ package
 		{
 			super();
 			testMsgPacket();
-			testProtoBuf();
 		}
-		private function testProtoBuf():void
-		{
-			var byte:WritingBuffer = new WritingBuffer()
-			var msg:MSG_User = new MSG_User();
-			msg.uid = 5;
-			msg.userName = "krpan";
-			msg.writeTo(byte);
-			byte.position = 0;
-			var a:MSG_User = new MSG_User(); 
-			a.readFromSlice(byte,0);
-		}
-				
+		
 		private function testMsgPacket():void
 		{
 			var obj:Object ={
@@ -45,7 +28,7 @@ package
 			}
 			
 			var users:Object = {
-				cmd:NetProtocol.CMD_CLASS_USER_LIST,
+				cmd:NetProtocol.CLASS_USER_LIST,
 				userList:[
 					{name:'tom',uid:10001},
 					{name:'jim',uid:1002},

@@ -5,6 +5,7 @@ package com.protocol
 	import com.commands.GetClassInfoCmd;
 	import com.commands.GetUserInfoCommand;
 	import com.commands.LoginCommand;
+	import com.commands.SendDataCommand;
 	import com.constants.NotificationType;
 	import com.model.ApplicationModelocator;
 	import com.utils.Logger;

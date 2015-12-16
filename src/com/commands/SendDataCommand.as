@@ -1,8 +1,5 @@
 package com.commands
 {
-	import com.proxy.ConnectionProxyFactory;
-	import com.proxy.IConnectionProxy;
-	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	
@@ -14,9 +11,6 @@ package com.commands
 		{
 			// TODO Auto Generated method stub
 			super.execute(notification);
-			var data:Object = notification.getBody();
-			var proxy:IConnectionProxy = ConnectionProxyFactory.getConnectionProxy();
-			proxy.sendSignalData(data);
 		}
 		
 		public function SendDataCommand()
