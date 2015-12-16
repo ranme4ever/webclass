@@ -1,5 +1,6 @@
 package com.mediator
 {
+	import com.commands.SendDataCommand;
 	import com.constants.NotificationType;
 	import com.protocol.NetProtocol;
 	import com.view.RightView;
@@ -35,6 +36,20 @@ package com.mediator
 			}
 		}
 		
+		override public function onRegister():void
+		{
+			// TODO Auto Generated method stub
+			super.onRegister();
+			getUserlst();
+		}
+		private function getUserlst():void
+		{
+			var data:Object = new Object();
+			data.cmd = NetProtocol.CMD_CLASS_USER_LIST;
+			sendNotification(SendDataCommand.SEND_DATA_COMMAND,data);
+		}
+		
+		
 		override public function listNotificationInterests():Array
 		{
 			// TODO Auto Generated method stub
@@ -49,7 +64,6 @@ package com.mediator
 			message.uid = data.sourceId;
 			message.sentTime = data.sentTime;
 			message.sender = data.sender;
-			
 			messageProvider.addItem(message);
 		}
 		
